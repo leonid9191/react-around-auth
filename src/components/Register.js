@@ -17,7 +17,6 @@ export function Register() {
         <fieldset className="form__register">
           <input
             required
-            id="email"
             name="email"
             type="email"
             placeholder="Email"
@@ -27,7 +26,6 @@ export function Register() {
           />
           <input
             required
-            id="password"
             name="password"
             type="password"
             placeholder="Password"
@@ -37,7 +35,7 @@ export function Register() {
           />
         </fieldset>
         <button type="submit" className="form__button form__button_dark">
-          Sigm Up
+          Sign Up
         </button>
       </form>
       <div className="register__login">

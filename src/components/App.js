@@ -7,23 +7,24 @@ import { EditProfilePopup } from "./EditProfilePopup.js";
 import { EditAvatarPopup } from "./EditAvatarPopup";
 import { AddPlacePopup } from "./AddPlacePopup.js";
 import { DeletePopup } from "./DeletePopup.js";
-import {Login} from "./Login.js";
+import { Login } from "./Login.js";
 import { Register } from "./Register.js";
 import { useState, useEffect } from "react";
 
-import api  from "../utils/api.js";
+import api from "../utils/api.js";
+import { InfoTooltip } from "./InfoTooltip.js";
 
 function App() {
   const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = useState(false);
   const [isAddPlacePopupOpen, setIsAddPlacePopupOpen] = useState(false);
   const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] = useState(false);
   const [isImagePopupOpen, setIsImagePopupOpen] = useState(false);
+  const [isInfoTooltipPopupOpen, setIsInfoTooltipPopupOpen] = useState(true);
   const [isDeleteCardPopupOpen, setIsDeleteCardPopupOpen] = useState(false);
   const [selectedCard, setSelectedCard] = useState({});
   const [currentUser, setCurrentUser] = useState({});
   const [cards, setCards] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
-
 
   useEffect(() => {
     api
@@ -69,7 +70,7 @@ function App() {
   };
 
   const handleAddPlaceSubmit = (newPlace) => {
-    setIsLoading(true)
+    setIsLoading(true);
     api
       .addCard(newPlace)
       .then((newCard) => {
@@ -78,7 +79,8 @@ function App() {
       })
       .catch((err) => {
         console.log(err);
-      }).finally(() => setIsLoading(false));
+      })
+      .finally(() => setIsLoading(false));
   };
 
   const handleCardLike = (card) => {
@@ -113,7 +115,8 @@ function App() {
       })
       .catch((err) => {
         console.log(err);
-      }).finally(() => setIsLoading(false));
+      })
+      .finally(() => setIsLoading(false));
   }
   const handleEditAvatarClick = () => {
     setIsEditAvatarPopupOpen(true);
@@ -139,7 +142,8 @@ function App() {
       })
       .catch((err) => {
         console.log("app.js ", err);
-      }).finally(() => setIsLoading(false));
+      })
+      .finally(() => setIsLoading(false));
   };
   const handleUpdateUser = (name, about) => {
     setIsLoading(true);
@@ -151,14 +155,20 @@ function App() {
       })
       .catch((err) => {
         console.log("app.js ", err);
-      }).finally(() => setIsLoading(false));
+      })
+      .finally(() => setIsLoading(false));
   };
 
   return (
-      <CurrentUserContext.Provider value={currentUser}>
-        <Header />
-        <Register />
-        {/* <Main
+    <CurrentUserContext.Provider value={currentUser}>
+      <Header />
+      <Register />
+      <Login />
+      <InfoTooltip 
+        isOpen={isInfoTooltipPopupOpen} 
+        onClose={closeAllPopups} 
+      />
+      {/* <Main
           onEditAvatarClick={handleEditAvatarClick}
           onEditProfileClick={handleEditProfileClick}
           onAddPlaceClick={handleAddPlaceClick}
@@ -203,8 +213,8 @@ function App() {
           isLoading={isLoading}
         /> */}
 
-        <Footer />
-      </CurrentUserContext.Provider>
+      <Footer />
+    </CurrentUserContext.Provider>
   );
 }
 

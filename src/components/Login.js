@@ -17,7 +17,6 @@ export function Login() {
         <fieldset className="form__register">
           <input
             required
-            id="email"
             name="email"
             type="email"
             placeholder="Email"
@@ -27,7 +26,6 @@ export function Login() {
           />
           <input
             required
-            id="password"
             name="password"
             type="password"
             placeholder="Password"
