@@ -7,6 +7,8 @@ import { EditProfilePopup } from "./EditProfilePopup.js";
 import { EditAvatarPopup } from "./EditAvatarPopup";
 import { AddPlacePopup } from "./AddPlacePopup.js";
 import { DeletePopup } from "./DeletePopup.js";
+import {Login} from "./Login.js";
+import { Register } from "./Register.js";
 import { useState, useEffect } from "react";
 
 import api  from "../utils/api.js";
@@ -155,7 +157,8 @@ function App() {
   return (
       <CurrentUserContext.Provider value={currentUser}>
         <Header />
-        <Main
+        <Register />
+        {/* <Main
           onEditAvatarClick={handleEditAvatarClick}
           onEditProfileClick={handleEditProfileClick}
           onAddPlaceClick={handleAddPlaceClick}
@@ -198,7 +201,7 @@ function App() {
           onClose={closeAllPopups}
           onUpdateAvatar={handleUpdateAvatar}
           isLoading={isLoading}
-        />
+        /> */}
 
         <Footer />
       </CurrentUserContext.Provider>

@@ -1,0 +1,31 @@
+.register {
+  margin: 0 auto;
+  max-width: 880px;
+}
+.register__welcome {
+  display: flex;
+  justify-content: center;
+  margin-top: 60px;
+  font-weight: 900;
+  font-size: 24px;
+  line-height: 29px;
+}
+.register__form {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-direction: column;
+}
+
+.register__login {
+  cursor: pointer;
+  margin-top: 15px;
+  display: flex;
+  justify-content: center;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 17px;
+}
+.register__login:hover {
+  opacity: 0.6;
+}
