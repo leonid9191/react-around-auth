@@ -11,6 +11,7 @@
   line-height: 29px;
 }
 .register__form {
+  margin-top: 50px;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -28,4 +29,15 @@
 }
 .register__login:hover {
   opacity: 0.6;
+}
+@media screen and (max-width: 767px) {
+  .register__welcome{
+    margin-top: 40px;
+  }
+  .register__form{
+    margin-top: 40px;
+  }
+  .register__login {
+    margin-top: 20px;
+  }
 }

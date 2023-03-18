@@ -13,6 +13,7 @@
 }
 
 .login__form {
+  margin-top: 50px;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -30,4 +31,16 @@
 }
 .login__signup:hover {
   opacity: 0.6;
+}
+
+@media screen and (max-width: 767px) {
+  .login__welcome {
+    margin-top: 40px;
+  }
+  .login__form{
+    margin-top: 40px;
+  }
+  .login__signup {
+    margin-top: 20px;
+  }
 }
