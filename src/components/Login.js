@@ -11,9 +11,9 @@ export function Login() {
   };
 
   return (
-    <div className="login">
-      <p className="login__welcome">Log In</p>
-      <form onSubmit={handleSubmit} className="form login__form">
+    <div className="register">
+      <p className="register__welcome">Log In</p>
+      <form onSubmit={handleSubmit} className="form register__form">
         <fieldset className="form__register">
           <input
             required
@@ -38,8 +38,8 @@ export function Login() {
           Log in
         </button>
       </form>
-      <div className="login__signup">
-        <a to="/register" className="signup__link">
+      <div className="register__login ">
+        <a to="/register" className="register__link">
           Not a member yet? Sign up here!
         </a>
       </div>

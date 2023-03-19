@@ -1,3 +1,5 @@
+import { Switch, Route } from "react-router-dom";
+import { useState, useEffect } from "react";
 import { Header } from "./Header.js";
 import { Main } from "./Main.js";
 import { Footer } from "./Footer.js";
@@ -9,7 +11,6 @@ import { AddPlacePopup } from "./AddPlacePopup.js";
 import { DeletePopup } from "./DeletePopup.js";
 import { Login } from "./Login.js";
 import { Register } from "./Register.js";
-import { useState, useEffect } from "react";
 
 import api from "../utils/api.js";
 import { InfoTooltip } from "./InfoTooltip.js";
@@ -163,21 +164,27 @@ function App() {
   return (
     <CurrentUserContext.Provider value={currentUser}>
       <Header />
-      <Register />
-      <Login />
-      <InfoTooltip 
-        isOpen={isInfoTooltipPopupOpen} 
-        onClose={closeAllPopups} 
-      />
-      {/* <Main
-          onEditAvatarClick={handleEditAvatarClick}
-          onEditProfileClick={handleEditProfileClick}
-          onAddPlaceClick={handleAddPlaceClick}
-          onCardClick={handleCardClick}
-          onCardLike={handleCardLike}
-          onCardTrashClick={handleCardTrashClick}
-          cards={cards}
-        />
+      <Switch>
+        <Route path="/register">
+          <Register />
+        </Route>
+        <Route path="/login">
+          <Login />
+        </Route>
+        <Route path="/">
+          <Main
+            onEditAvatarClick={handleEditAvatarClick}
+            onEditProfileClick={handleEditProfileClick}
+            onAddPlaceClick={handleAddPlaceClick}
+            onCardClick={handleCardClick}
+            onCardLike={handleCardLike}
+            onCardTrashClick={handleCardTrashClick}
+            cards={cards}
+          />
+        </Route>
+      </Switch>
+      {/* <InfoTooltip isOpen={isInfoTooltipPopupOpen} onClose={closeAllPopups} /> */}
+      {/* 
 
         <DeletePopup
           isOpen={isDeleteCardPopupOpen}

@@ -4,7 +4,6 @@ import Card from "./Card.js";
 
 export function Main({cards, onCardLike, onCardTrashClick, onEditAvatarClick, onEditProfileClick, onAddPlaceClick, onCardClick}) {
   const currentUser = useContext(CurrentUserContext);
-  
 
   return (
     <main className="main">

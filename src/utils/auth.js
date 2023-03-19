@@ -2,7 +2,7 @@ const BASE_URL = "https://register.nomoreparties.co";
 
 function checkResponse(res) {
   if (res.ok) {
-      return response.json();
+      return res.json();
   }
   return Promise.reject(
       `something goes wrong: ${res.status} ${res.statusText}`
