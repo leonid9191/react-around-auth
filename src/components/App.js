@@ -183,44 +183,41 @@ function App() {
           />
         </Route>
       </Switch>
-      {/* <InfoTooltip isOpen={isInfoTooltipPopupOpen} onClose={closeAllPopups} /> */}
-      {/* 
+      <DeletePopup
+        isOpen={isDeleteCardPopupOpen}
+        onClose={closeAllPopups}
+        onDeleteCard={handleCardDelete}
+        card={selectedCard}
+        isLoading={isLoading}
+      />
 
-        <DeletePopup
-          isOpen={isDeleteCardPopupOpen}
-          onClose={closeAllPopups}
-          onDeleteCard={handleCardDelete}
-          card={selectedCard}
-          isLoading={isLoading}
-        />
+      <ImagePopup
+        card={selectedCard}
+        isOpen={isImagePopupOpen}
+        onClose={closeAllPopups}
+      />
 
-        <ImagePopup
-          card={selectedCard}
-          isOpen={isImagePopupOpen}
-          onClose={closeAllPopups}
-        />
+      <EditProfilePopup
+        isOpen={isEditProfilePopupOpen}
+        onClose={closeAllPopups}
+        onUpdateUser={handleUpdateUser}
+        isLoading={isLoading}
+      />
 
-        <EditProfilePopup
-          isOpen={isEditProfilePopupOpen}
-          onClose={closeAllPopups}
-          onUpdateUser={handleUpdateUser}
-          isLoading={isLoading}
-        />
+      <AddPlacePopup
+        isOpen={isAddPlacePopupOpen}
+        onClose={closeAllPopups}
+        onAddPlaceSubmit={handleAddPlaceSubmit}
+        isLoading={isLoading}
+      />
 
-        <AddPlacePopup
-          isOpen={isAddPlacePopupOpen}
-          onClose={closeAllPopups}
-          onAddPlaceSubmit={handleAddPlaceSubmit}
-          isLoading={isLoading}
-        />
-
-        <EditAvatarPopup
-          isOpen={isEditAvatarPopupOpen}
-          onClose={closeAllPopups}
-          onUpdateAvatar={handleUpdateAvatar}
-          isLoading={isLoading}
-        /> */}
-
+      <EditAvatarPopup
+        isOpen={isEditAvatarPopupOpen}
+        onClose={closeAllPopups}
+        onUpdateAvatar={handleUpdateAvatar}
+        isLoading={isLoading}
+      />
+      <InfoTooltip isOpen={isInfoTooltipPopupOpen} onClose={closeAllPopups} />
       <Footer />
     </CurrentUserContext.Provider>
   );
