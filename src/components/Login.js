@@ -1,5 +1,6 @@
 import React from "react";
 import { useState } from "react";
+import { Link } from "react-router-dom";
 import * as auth from "../utils/auth.js";
 
 export function Login() {
@@ -39,9 +40,9 @@ export function Login() {
         </button>
       </form>
       <div className="register__login ">
-        <a to="/register" className="register__link">
+        <Link to="/register" className="register__link">
           Not a member yet? Sign up here!
-        </a>
+        </Link>
       </div>
 
     </div>

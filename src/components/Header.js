@@ -1,13 +1,51 @@
+import { Link, useLocation, useHistory } from "react-router-dom";
 import logo from "../images/logo.svg";
 
-export function Header() {
-  return(
-    <header className="header">
-      <img
-        className="header__logo"
-        src={logo}
-        alt="logo"
-      />
-    </header>
-  );
+export function Header({ ...props }) {
+  const location = useLocation();
+  const history = useHistory();
+  const logOut = () => {
+    // localStorage.removeItem('jwt');
+    history.push("/login");
+    // props.handleLogout();
+  };
+
+  switch (location.pathname) {
+    case "/login":
+      return (
+        <header className="header">
+          <div className="header__registration">
+            <img className="header__logo" src={logo} alt="logo" />
+            <Link className="header__link" to="/register">
+              Sign up
+            </Link>
+          </div>
+        </header>
+      );
+    case "/register":
+      return (
+        <header className="header">
+          <div className="header__registration">
+            <img className="header__logo" src={logo} alt="logo" />
+            <Link className="header__link" to="/login">
+              Log in
+            </Link>
+          </div>
+        </header>
+      );
+    default:
+      return (
+        <header className="header">
+          <div className="header__registration">
+            <img className="header__logo" src={logo} alt="logo" />
+            <div className="header__nav">
+              <p className="header__nav_email">example@jbhjd.com</p>
+              <a className="header__link" onClick={logOut}>
+                Log out
+              </a>
+            </div>
+          </div>
+        </header>
+      );
+  }
 }

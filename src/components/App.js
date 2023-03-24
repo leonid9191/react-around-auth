@@ -14,6 +14,7 @@ import { Register } from "./Register.js";
 
 import api from "../utils/api.js";
 import { InfoTooltip } from "./InfoTooltip.js";
+import ProtectedRoute from "./ProtectedRoute.js";
 
 function App() {
   const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = useState(false);
@@ -26,7 +27,7 @@ function App() {
   const [currentUser, setCurrentUser] = useState({});
   const [cards, setCards] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
-  const [isLogin, setIsLogin] = useState(false);
+  const [isLogin, setIsLogin] = useState(true);
 
   useEffect(() => {
     api
@@ -163,7 +164,7 @@ function App() {
 
   return (
     <CurrentUserContext.Provider value={currentUser}>
-      <Header />
+      <Header loggedIn={isLogin} />
       <Switch>
         <Route path="/register">
           <Register />
@@ -172,7 +173,8 @@ function App() {
           <Login />
         </Route>
         <Route path="/">
-          <Main
+          <ProtectedRoute
+            loggedIn={isLogin}
             onEditAvatarClick={handleEditAvatarClick}
             onEditProfileClick={handleEditProfileClick}
             onAddPlaceClick={handleAddPlaceClick}
@@ -180,6 +182,7 @@ function App() {
             onCardLike={handleCardLike}
             onCardTrashClick={handleCardTrashClick}
             cards={cards}
+            component={Main}
           />
         </Route>
       </Switch>
@@ -217,7 +220,7 @@ function App() {
         onUpdateAvatar={handleUpdateAvatar}
         isLoading={isLoading}
       />
-      <InfoTooltip isOpen={isInfoTooltipPopupOpen} onClose={closeAllPopups} />
+      {/* <InfoTooltip isOpen={isInfoTooltipPopupOpen} onClose={closeAllPopups} /> */}
       <Footer />
     </CurrentUserContext.Provider>
   );

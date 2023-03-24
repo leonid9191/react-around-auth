@@ -1,4 +1,4 @@
-.header{
+.header {
   margin: 0 auto;
   max-width: 880px;
 }
@@ -9,15 +9,40 @@
   opacity: 0.7;
   margin-top: 41px;
 }
-
 .header__logo {
   margin-top: 40px;
   height: 33px;
   width: 173px;
 }
+.header__registration {
+  display: flex;
+  justify-content: space-between;
+}
+.header__nav{
+  display: flex;
+}
+.header__nav_email{
+  margin-top: 51px;
+  margin-right: 24px;
+}
+.header__link {
+  cursor: pointer;
+  margin-top: 51px;
+  text-decoration: none;
+  color: #fff;
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 22px;
+  transition: 0.3s;
+}
+.header__link:hover{
+  opacity: 0.6;
+}
+
+
 
 @media screen and (max-width: 767px) {
-  .header{
+  .header {
     width: 100%;
   }
   .header__logo {
@@ -26,7 +51,7 @@
     margin-top: 28px;
     margin-left: 27px;
   }
-  .header::after{
+  .header::after {
     margin-top: 32px;
   }
 }

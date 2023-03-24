@@ -30,11 +30,19 @@
 .register__login:hover {
   opacity: 0.6;
 }
+.register__link {
+  text-decoration: none;
+  color: #fff;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 17px;
+  transition: 0.3s;
+}
 @media screen and (max-width: 767px) {
-  .register__welcome{
+  .register__welcome {
     margin-top: 40px;
   }
-  .register__form{
+  .register__form {
     margin-top: 40px;
   }
   .register__login {

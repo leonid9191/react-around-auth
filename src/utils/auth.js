@@ -2,10 +2,10 @@ const BASE_URL = "https://register.nomoreparties.co";
 
 function checkResponse(res) {
   if (res.ok) {
-      return res.json();
+    return res.json();
   }
   return Promise.reject(
-      `something goes wrong: ${res.status} ${res.statusText}`
+    `something goes wrong: ${res.status} ${res.statusText}`
   );
 }
 
@@ -32,6 +32,26 @@ export async function logIn(email, password) {
       password: password,
       email: email,
     }),
+  }).then((data) => {
+    if (data.user) {
+      localStorage.setItem("jwt", data.jwt);
+      return data;
+    }
   });
   return checkResponse(res);
+}
+
+export async function checkingTokenValidity(jwt) {
+  if (!jwt) {
+    throw new Error("your token in not valid");
+  }
+
+  const response = await fetch(`${BASE_URL}/users/me`, {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${jwt}`,
+    },
+  });
+  return checkResponse(response);
 }
