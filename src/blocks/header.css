@@ -18,12 +18,15 @@
   display: flex;
   justify-content: space-between;
 }
-.header__nav{
+.header__nav {
   display: flex;
 }
-.header__nav_email{
+.header__nav_email {
   margin-top: 51px;
   margin-right: 24px;
+  font-weight: 500;
+  font-size: 18px;
+  line-height: 22px;
 }
 .header__link {
   cursor: pointer;
@@ -35,11 +38,9 @@
   line-height: 22px;
   transition: 0.3s;
 }
-.header__link:hover{
+.header__link:hover {
   opacity: 0.6;
 }
-
-
 
 @media screen and (max-width: 767px) {
   .header {

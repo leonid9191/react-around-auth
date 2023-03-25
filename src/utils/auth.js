@@ -33,17 +33,14 @@ export async function logIn(email, password) {
       email: email,
     }),
   }).then((data) => {
-    if (data.user) {
-      localStorage.setItem("jwt", data.jwt);
-      return data;
-    }
+    return checkResponse(data);
   });
-  return checkResponse(res);
+  return res;
 }
 
 export async function checkingTokenValidity(jwt) {
   if (!jwt) {
-    throw new Error("your token in not valid");
+    throw new Error("Token is not valid");
   }
 
   const response = await fetch(`${BASE_URL}/users/me`, {
@@ -53,5 +50,5 @@ export async function checkingTokenValidity(jwt) {
       Authorization: `Bearer ${jwt}`,
     },
   });
-  return checkResponse(response);
+  return response.json();
 }

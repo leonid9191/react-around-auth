@@ -5,9 +5,8 @@ export function Header({ ...props }) {
   const location = useLocation();
   const history = useHistory();
   const logOut = () => {
-    // localStorage.removeItem('jwt');
     history.push("/login");
-    // props.handleLogout();
+    props.handleLogout();
   };
 
   switch (location.pathname) {
@@ -39,7 +38,7 @@ export function Header({ ...props }) {
           <div className="header__registration">
             <img className="header__logo" src={logo} alt="logo" />
             <div className="header__nav">
-              <p className="header__nav_email">example@jbhjd.com</p>
+              <p className="header__nav_email">{props.email}</p>
               <a className="header__link" onClick={logOut}>
                 Log out
               </a>

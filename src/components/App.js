@@ -1,4 +1,4 @@
-import { Switch, Route } from "react-router-dom";
+import { Switch, Route, useHistory } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { Header } from "./Header.js";
 import { Main } from "./Main.js";
@@ -12,6 +12,7 @@ import { DeletePopup } from "./DeletePopup.js";
 import { Login } from "./Login.js";
 import { Register } from "./Register.js";
 
+import * as auth from "../utils/auth.js";
 import api from "../utils/api.js";
 import { InfoTooltip } from "./InfoTooltip.js";
 import ProtectedRoute from "./ProtectedRoute.js";
@@ -23,11 +24,15 @@ function App() {
   const [isImagePopupOpen, setIsImagePopupOpen] = useState(false);
   const [isInfoTooltipPopupOpen, setIsInfoTooltipPopupOpen] = useState(true);
   const [isDeleteCardPopupOpen, setIsDeleteCardPopupOpen] = useState(false);
+
   const [selectedCard, setSelectedCard] = useState({});
   const [currentUser, setCurrentUser] = useState({});
   const [cards, setCards] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
-  const [isLogin, setIsLogin] = useState(true);
+  const [isLogin, setIsLogin] = useState(false);
+  const [email, setEmail] = useState("");
+
+  const history = useHistory();
 
   useEffect(() => {
     api
@@ -61,6 +66,21 @@ function App() {
       .catch((err) => {
         console.log(err);
       });
+  }, []);
+
+  //check if user logged in before and save email
+  useEffect(() => {
+    const jwt = localStorage.getItem("jwt");
+    const res = auth.checkingTokenValidity(jwt);
+    if (res) {
+      res
+        .then((user) => {
+          setEmail(user.data.email);
+          setIsLogin(true);
+          history.push("/");
+        })
+        .catch((err) => console.log(err.message));
+    }
   }, []);
 
   const closeAllPopups = () => {
@@ -162,15 +182,33 @@ function App() {
       .finally(() => setIsLoading(false));
   };
 
+  //log In by email and password
+  const handleLogin = (email, password) => {
+    if (!email || !password) {
+      return;
+    }
+    auth.logIn(email, password).then((res) => {
+      localStorage.setItem("jwt", res.token);
+      history.go("/");
+    });
+  };
+
+  //log Out
+  const handleLogout = () => {
+    localStorage.removeItem("jwt");
+    setIsLogin(false);
+    setEmail("");
+  };
+
   return (
     <CurrentUserContext.Provider value={currentUser}>
-      <Header loggedIn={isLogin} />
+      <Header loggedIn={isLogin} email={email} handleLogout={handleLogout} />
       <Switch>
         <Route path="/register">
           <Register />
         </Route>
         <Route path="/login">
-          <Login />
+          <Login handleLogin={handleLogin} />
         </Route>
         <Route path="/">
           <ProtectedRoute
@@ -184,6 +222,9 @@ function App() {
             cards={cards}
             component={Main}
           />
+        </Route>
+        <Route path="*">
+          <Login handleLogin={handleLogin} />
         </Route>
       </Switch>
       <DeletePopup
