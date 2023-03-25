@@ -16,14 +16,17 @@ import * as auth from "../utils/auth.js";
 import api from "../utils/api.js";
 import { InfoTooltip } from "./InfoTooltip.js";
 import ProtectedRoute from "./ProtectedRoute.js";
+import successRegistrationImg from "../images/success.png";
+import failRegistrationImg from "../images/fail.png";
 
 function App() {
   const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = useState(false);
   const [isAddPlacePopupOpen, setIsAddPlacePopupOpen] = useState(false);
   const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] = useState(false);
   const [isImagePopupOpen, setIsImagePopupOpen] = useState(false);
-  const [isInfoTooltipPopupOpen, setIsInfoTooltipPopupOpen] = useState(true);
   const [isDeleteCardPopupOpen, setIsDeleteCardPopupOpen] = useState(false);
+  const [successRegistration, setSuccessRegistration] = useState(false);
+  const [failRegistration, setFailRegistration] = useState(false);
 
   const [selectedCard, setSelectedCard] = useState({});
   const [currentUser, setCurrentUser] = useState({});
@@ -90,6 +93,8 @@ function App() {
     setIsImagePopupOpen(false);
     setIsDeleteCardPopupOpen(false);
     setSelectedCard({});
+    setSuccessRegistration(false);
+    setFailRegistration(false);
   };
 
   const handleAddPlaceSubmit = (newPlace) => {
@@ -182,15 +187,40 @@ function App() {
       .finally(() => setIsLoading(false));
   };
 
-  //log In by email and password
+  //Registration
+  const handleRegistration = (email, password) => {
+    if (password) {
+      auth
+        .register(email, password)
+        .then((res) => {
+          if (res) {
+            history.push("/login");
+            setSuccessRegistration(true);
+          } else {
+            console.log("Something went wrong.");
+          }
+        })
+        .catch((err) => {
+          console.log(err.message);
+        });
+    }
+  };
+
+  //logIn by email and password
   const handleLogin = (email, password) => {
     if (!email || !password) {
       return;
     }
-    auth.logIn(email, password).then((res) => {
-      localStorage.setItem("jwt", res.token);
-      history.go("/");
-    });
+    auth
+      .logIn(email, password)
+      .then((res) => {
+        localStorage.setItem("jwt", res.token);
+        history.go("/");
+      })
+      .catch((err) => {
+        setFailRegistration(true);
+        console.log(err.message);
+      });
   };
 
   //log Out
@@ -205,7 +235,7 @@ function App() {
       <Header loggedIn={isLogin} email={email} handleLogout={handleLogout} />
       <Switch>
         <Route path="/register">
-          <Register />
+          <Register handleRegistration={handleRegistration} />
         </Route>
         <Route path="/login">
           <Login handleLogin={handleLogin} />
@@ -261,8 +291,19 @@ function App() {
         onUpdateAvatar={handleUpdateAvatar}
         isLoading={isLoading}
       />
-      {/* <InfoTooltip isOpen={isInfoTooltipPopupOpen} onClose={closeAllPopups} /> */}
-      <Footer />
+      <InfoTooltip
+        isOpen={successRegistration}
+        onClose={closeAllPopups}
+        text={"Success! You have now been registered."}
+        img={successRegistrationImg}
+      />
+      <InfoTooltip
+        isOpen={failRegistration}
+        onClose={closeAllPopups}
+        text={"Oops, something went wrong! Please try again."}
+        img={failRegistrationImg}
+      />
+      {isLogin && <Footer />}
     </CurrentUserContext.Provider>
   );
 }

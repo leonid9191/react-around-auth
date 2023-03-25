@@ -1,33 +1,15 @@
 import React from "react";
 import { useState } from "react";
-import { Link, useHistory } from "react-router-dom";
-import * as auth from "../utils/auth.js";
+import { Link } from "react-router-dom";
 
-export function Login({handleLogin}) {
+export function Login({ handleLogin }) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
   function handleSubmit(e) {
     e.preventDefault();
-    console.log(email,password)
     handleLogin(email, password);
   }
-
-  // const handleSubmit = (e) => {
-  //   e.preventDefault();
-  //   if (!email || !password){
-  //     return;
-  //   }
-  //   auth.logIn(email, password)
-  //   .then((res) => {
-  //     localStorage.setItem('jwt', res.token);
-  //     console.log('enter')
-  //     history.push('/');
-
-  //   })
-
-  // };
-
   return (
     <div className="register">
       <p className="register__welcome">Log In</p>
@@ -61,7 +43,6 @@ export function Login({handleLogin}) {
           Not a member yet? Sign up here!
         </Link>
       </div>
-
     </div>
   );
 }

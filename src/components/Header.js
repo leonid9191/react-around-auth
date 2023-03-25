@@ -42,6 +42,7 @@ export function Header({ ...props }) {
               <a className="header__link" onClick={logOut}>
                 Log out
               </a>
+              
             </div>
           </div>
         </header>
