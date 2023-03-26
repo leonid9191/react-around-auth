@@ -74,9 +74,9 @@ function App() {
   //check if user logged in before and save email
   useEffect(() => {
     const jwt = localStorage.getItem("jwt");
-    const res = auth.checkingTokenValidity(jwt);
-    if (res) {
-      res
+    if (jwt) {
+      auth
+        .checkingTokenValidity(jwt)
         .then((user) => {
           setEmail(user.data.email);
           setIsLogin(true);
@@ -85,6 +85,8 @@ function App() {
         .catch((err) => console.log(err.message));
     }
   }, []);
+
+
 
   const closeAllPopups = () => {
     setIsAddPlacePopupOpen(false);
@@ -201,6 +203,7 @@ function App() {
           }
         })
         .catch((err) => {
+          setFailRegistration(true);
           console.log(err.message);
         });
     }
@@ -296,12 +299,14 @@ function App() {
         onClose={closeAllPopups}
         text={"Success! You have now been registered."}
         img={successRegistrationImg}
+        alt={"success"}
       />
       <InfoTooltip
         isOpen={failRegistration}
         onClose={closeAllPopups}
         text={"Oops, something went wrong! Please try again."}
         img={failRegistrationImg}
+        alt={"fail"}
       />
       {isLogin && <Footer />}
     </CurrentUserContext.Provider>

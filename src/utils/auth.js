@@ -32,10 +32,8 @@ export async function logIn(email, password) {
       password: password,
       email: email,
     }),
-  }).then((data) => {
-    return checkResponse(data);
-  });
-  return res;
+  })
+  return checkResponse(res);
 }
 
 export async function checkingTokenValidity(jwt) {
@@ -50,5 +48,5 @@ export async function checkingTokenValidity(jwt) {
       Authorization: `Bearer ${jwt}`,
     },
   });
-  return response.json();
+  return checkResponse(response);
 }

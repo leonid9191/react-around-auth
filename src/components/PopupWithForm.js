@@ -1,3 +1,4 @@
+import Popup from "./Popup";
 export function PopupWithForm({
   title,
   name,
@@ -5,10 +6,10 @@ export function PopupWithForm({
   isOpen,
   children,
   onClose,
-  onSubmit
+  onSubmit,
 }) {
   return (
-    <div className={`popup popup_type_${name} ${isOpen ? "popup_opened" : ""}`}>
+    <Popup isOpen={isOpen} name={name} onClose={onClose}>
       <div className="popup__content">
         <button type="button" onClick={onClose} className="popup__close" />
         <h2 className="popup__header">{title}</h2>
@@ -19,6 +20,6 @@ export function PopupWithForm({
           </button>
         </form>
       </div>
-    </div>
+    </Popup>
   );
 }

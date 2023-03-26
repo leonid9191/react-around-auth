@@ -1,4 +1,4 @@
-import { Link, useLocation, useHistory } from "react-router-dom";
+import { Link, useLocation, useHistory, Route } from "react-router-dom";
 import logo from "../images/logo.svg";
 
 export function Header({ ...props }) {
@@ -42,7 +42,6 @@ export function Header({ ...props }) {
               <a className="header__link" onClick={logOut}>
                 Log out
               </a>
-              
             </div>
           </div>
         </header>
